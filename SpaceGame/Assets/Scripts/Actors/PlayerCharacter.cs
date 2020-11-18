@@ -21,8 +21,9 @@ public class PlayerCharacter : MonoBehaviour
     private float _horizontal;
     private float _vertical;
     // Modificação do jump
-    private bool _jump;
+    //private bool _jump;
     private bool _grounded;
+    private bool _afloat;
     // Fim modificação do jump
 
     void Start()
@@ -41,10 +42,10 @@ public class PlayerCharacter : MonoBehaviour
         
 
         // Modificação do jump
-        if(Input.GetKeyDown("w"))
-        {
-            _jump = true;
-        }
+        //if(Input.GetKeyDown("w"))
+        //{
+        //    _jump = true;
+        //}
         // Fim modificação do jump
 
         if (_horizontal < 0 && !_flip)
@@ -64,10 +65,16 @@ public class PlayerCharacter : MonoBehaviour
         //Script do pulo
         _grounded = Physics2D.Raycast(transform.position, -Vector3.up, groundThresh,groundColision);
 
-        if(_jump && _grounded)
+        if((_vertical > 0) && _grounded)
         {
             _rb.AddForce(Vector2.up * jumpSpeed * Time.deltaTime, ForceMode2D.Force);
-            _jump = false;
+            _anim.SetBool("Jumping", true);
+            _afloat = true;
+        }
+        else if(_grounded && _afloat)
+        {
+            _afloat = false;
+            _anim.SetBool("Jumping", false);
         }
         // Fim do script do pulo
 
@@ -75,6 +82,7 @@ public class PlayerCharacter : MonoBehaviour
         if (_horizontal != 0)
             _rb.AddForce(Vector2.right * _horizontal * movementSpeed * Time.deltaTime, ForceMode2D.Force);
 
+        _anim.SetFloat("VerticalVelocity", Mathf.Abs(_rb.velocity.y));
         _anim.SetFloat("Speed", Mathf.Abs(_horizontal));
         _anim.SetFloat("HorizontalVelocity", Mathf.Abs(_rb.velocity.x));
     }
