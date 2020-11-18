@@ -114,5 +114,5 @@ MonoBehaviour:
   damage: 1
   speed: 10
   rate: 0.2
-  duration: 2
+  limite: 7
   shooter: {fileID: 0}

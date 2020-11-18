@@ -6,42 +6,43 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool SharedInstance;
     public Dictionary<string, Queue<GameObject>> pooledObjects = new Dictionary<string, Queue<GameObject>>(); 
-    
+    private bool destroyed = false;
+
     void Awake()
     {
         SharedInstance = this;
     }
 
-    void AddObjects(string tag, GameObject objectToPool)
+    void AddObjects(GameObject objectToPool)
     { 
         Queue<GameObject> objPool = new Queue<GameObject>();
         var obj = GameObject.Instantiate(objectToPool);
         obj.transform.parent = transform;
         obj.SetActive(false);
         objPool.Enqueue(obj);
-        if(pooledObjects.ContainsKey(tag))
+        if(pooledObjects.ContainsKey(objectToPool.tag))
         {
-            pooledObjects[tag].Enqueue(obj);
+            pooledObjects[objectToPool.tag].Enqueue(obj);
         }
         else
         {
-            pooledObjects.Add(tag, objPool);    
+            pooledObjects.Add(objectToPool.tag, objPool);    
         }
     }
     
-    public GameObject GetPooledObject(string tag, GameObject objectToPool)
+    public GameObject GetPooledObject(GameObject objectToPool)
     {
-        if(!pooledObjects.ContainsKey(tag)){
-            AddObjects(tag, objectToPool);
+        if(!pooledObjects.ContainsKey(objectToPool.tag)){
+            AddObjects(objectToPool);
         }
         else
         {
-            if(pooledObjects[tag].Count == 0)
+            if(pooledObjects[objectToPool.tag].Count == 0)
             {
-                AddObjects(tag, objectToPool);
+                AddObjects(objectToPool);
             }
         }
-        return pooledObjects[tag].Dequeue();
+        return pooledObjects[objectToPool.tag].Dequeue();
     }
 
     public void ReturnToPool(GameObject objToPool)
@@ -52,8 +53,15 @@ public class ObjectPool : MonoBehaviour
 
     public IEnumerator ReturnToPool(GameObject objToPool, float duration)
     {
-        yield return new WaitForSeconds(duration);
-        objToPool.SetActive(false);
-        pooledObjects[objToPool.tag].Enqueue(objToPool);          
+        if(destroyed){
+            yield return null;
+        }
+        if(!destroyed){
+            destroyed = true;
+            yield return new WaitForSeconds(duration);
+            objToPool.SetActive(false);
+            pooledObjects[objToPool.tag].Enqueue(objToPool);  
+            destroyed = false;        
+        }
     }
 } 

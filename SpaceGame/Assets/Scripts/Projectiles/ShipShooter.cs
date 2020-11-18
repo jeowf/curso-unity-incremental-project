@@ -35,7 +35,7 @@ public class ShipShooter : MonoBehaviour
             shooted = true;
             yield return new WaitForSeconds(t);
             //GameObject proj = GameObject.Instantiate(projectiles[selectedType].gameObject) as GameObject;
-            GameObject proj = ObjectPool.SharedInstance.GetPooledObject(projectiles[selectedType].gameObject.tag, projectiles[selectedType].gameObject);
+            GameObject proj = ObjectPool.SharedInstance.GetPooledObject(projectiles[selectedType].gameObject);
             proj.transform.position = transform.position;
             proj.transform.rotation = transform.rotation;
             proj.SetActive(true);
