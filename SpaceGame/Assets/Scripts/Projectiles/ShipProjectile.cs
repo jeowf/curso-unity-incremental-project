@@ -14,7 +14,9 @@ public class ShipProjectile : MonoBehaviour
 
     void Start()
     {
-        GameObject.Destroy(gameObject, duration);
+        //GameObject.Destroy(gameObject, duration);
+        StartCoroutine(ObjectPool.SharedInstance.ReturnToPool(gameObject, duration));
+        
     }
 
     void Update()
@@ -30,5 +32,6 @@ public class ShipProjectile : MonoBehaviour
 
     }
     */
+   
 
 }
