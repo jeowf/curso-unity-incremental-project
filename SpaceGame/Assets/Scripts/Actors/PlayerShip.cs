@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     public float speed = 1f;
+    public int health = 100;
+    public int Score;
+    public HealthBar healthBar;
 
     private Rigidbody2D rb;
 
@@ -19,6 +22,7 @@ public class PlayerShip : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         
+        healthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -27,6 +31,10 @@ public class PlayerShip : MonoBehaviour
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         inputDirection = input.normalized;
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TakeDamage(10);
+        }
     }
 
     void FixedUpdate()
@@ -44,5 +52,11 @@ public class PlayerShip : MonoBehaviour
                toPos.x < maxCamera.x &&
                toPos.y > minCamera.y &&
                toPos.y < maxCamera.y;
+    }
+
+    void TakeDamage(int damage)
+    {
+        health -= damage;
+        healthBar.SetHealth(health);
     }
 }
