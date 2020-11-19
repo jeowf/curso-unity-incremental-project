@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 704782246}
   - component: {fileID: 704782250}
   - component: {fileID: 704782249}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cenario
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1821,7 +1821,7 @@ GameObject:
   - component: {fileID: 1793531472}
   - component: {fileID: 1793531474}
   - component: {fileID: 1793531473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: detalhes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2054,7 +2054,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1937660929}
   - component: {fileID: 1937660930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
