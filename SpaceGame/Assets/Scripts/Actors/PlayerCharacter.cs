@@ -11,6 +11,7 @@ public class PlayerCharacter : MonoBehaviour
     public float groundThresh = 0.2f;
     // Fim modificação do jump
 
+    
     private SpriteRenderer _sr;
     private Animator _anim;
     private CapsuleCollider2D _capsule;
