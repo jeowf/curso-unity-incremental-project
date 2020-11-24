@@ -19,11 +19,11 @@ public class PlayerCharacter : MonoBehaviour
     private bool _flip = false;
 
     private float _horizontal;
-    private float _vertical;
+    //private float _vertical;
     // Modificação do jump
     //private bool _jump;
     private bool _grounded;
-    private bool _afloat;
+    //private bool _afloat;
     // Fim modificação do jump
 
     void Start()
@@ -38,7 +38,7 @@ public class PlayerCharacter : MonoBehaviour
     void Update()
     {
         _horizontal = Input.GetAxis("Horizontal");
-        _vertical = Input.GetAxis("Vertical");
+        //_vertical = Input.GetAxis("Vertical");
         
 
         // Modificação do jump
@@ -62,25 +62,35 @@ public class PlayerCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (_horizontal != 0)
+        {
+            _rb.AddForce(Vector2.right * _horizontal * movementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+        }
         //Script do pulo
+        Debug.DrawRay(transform.position, -Vector3.up * groundThresh, Color.red);
         _grounded = Physics2D.Raycast(transform.position, -Vector3.up, groundThresh,groundColision);
 
-        if((_vertical > 0) && _grounded)
+        if (Input.GetKeyDown(KeyCode.W) && _grounded)
         {
-            _rb.AddForce(Vector2.up * jumpSpeed * Time.deltaTime, ForceMode2D.Force);
-            _anim.SetBool("Jumping", true);
-            _afloat = true;
+            //_rb.AddForce(Vector2.up * jumpSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+            _rb.velocity = new Vector2(_rb.velocity.x, jumpSpeed);
         }
-        else if(_grounded && _afloat)
+
+        if (!_grounded) {
+            _anim.SetBool("Jumping", true);
+            //_afloat = true;
+        }
+        else
         {
-            _afloat = false;
+            //_afloat = false;
             _anim.SetBool("Jumping", false);
         }
         // Fim do script do pulo
 
         //_rb.MovePosition(_rb.position + )
-        if (_horizontal != 0)
-            _rb.AddForce(Vector2.right * _horizontal * movementSpeed * Time.deltaTime, ForceMode2D.Force);
+        
+            
 
         _anim.SetFloat("VerticalVelocity", Mathf.Abs(_rb.velocity.y));
         _anim.SetFloat("Speed", Mathf.Abs(_horizontal));
