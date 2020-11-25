@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4063201300737884791}
   m_Layer: 0
   m_Name: PlayerShoot01
-  m_TagString: Untagged
+  m_TagString: Bullet1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,5 +114,5 @@ MonoBehaviour:
   damage: 1
   speed: 10
   rate: 0.2
-  duration: 2
+  limite: 7
   shooter: {fileID: 0}

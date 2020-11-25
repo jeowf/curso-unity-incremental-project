@@ -72,7 +72,7 @@ public class PlayerCharacter : MonoBehaviour
         Debug.DrawRay(transform.position, -Vector3.up * groundThresh, Color.red);
         _grounded = Physics2D.Raycast(transform.position, -Vector3.up, groundThresh,groundColision);
 
-        if (Input.GetKeyDown(KeyCode.W) && _grounded)
+        if (Input.GetKey(KeyCode.W) && _grounded)
         {
             //_rb.AddForce(Vector2.up * jumpSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
             _rb.velocity = new Vector2(_rb.velocity.x, jumpSpeed);
