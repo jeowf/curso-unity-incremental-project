@@ -5,20 +5,42 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Transform player;
+    private PlayerCharacter playerScript;
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sr;
+    private bool dealtDamage = false;
 
+    public float damage =5f;
     public float health = 100;
     public float speed = 5f;
     public float distFollow = 15f;
+    public int pointsWorth = 10;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+    }
+
+    IEnumerator OnTriggerStay2D (Collider2D hitInfo)
+    {
+        PlayerCharacter player = hitInfo.GetComponent<PlayerCharacter>();
+        //GameObject.Destroy(gameObject);
+        if(dealtDamage)
+        {
+            yield return null;
+        }
+        if(player != null && !dealtDamage)
+        {
+            dealtDamage = true;
+            yield return new WaitForSeconds(0.5f);
+            player.TakeDamage(damage);
+            dealtDamage = false;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -28,6 +50,7 @@ public class Enemy : MonoBehaviour
         if(health <= 0)
         {
             anim.SetBool("Dead", true);
+            playerScript.RaisePoints(pointsWorth);
             Destroy(gameObject);
         }
     }
