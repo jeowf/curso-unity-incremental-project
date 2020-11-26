@@ -51,14 +51,21 @@ public class PlayerCharacter : MonoBehaviour
 
         if (_horizontal < 0 && !_flip)
         {
-            _sr.flipX = true;
+            transform.Rotate(0f, 180f, 0f);
+            //_sr.flipX = true;
             _flip = true;
         }
         else if (_horizontal > 0 && _flip)
         {
-            _sr.flipX = false;
+            //_sr.flipX = false;
+            transform.Rotate(0f, -180f, 0f);
             _flip = false;
         }
+    }
+
+    public bool Flip()
+    {
+        return _flip;
     }
 
     void FixedUpdate()
