@@ -32,6 +32,17 @@ public class ShipProjectile : MonoBehaviour
 
     }
     */
-   
+    void OnTriggerEnter2D(Collider2D other)
+    {    
+        if (other.tag == "Enemy")
+        {
+            ObjectPool.SharedInstance.ReturnToPool(gameObject);
+            ObjectPool.SharedInstance.ReturnToPool(other.gameObject);
+        }
+        else if (other.tag == "Asteroid")
+        {
+            ObjectPool.SharedInstance.ReturnToPool(gameObject);
+        }
+    }
 
 }
