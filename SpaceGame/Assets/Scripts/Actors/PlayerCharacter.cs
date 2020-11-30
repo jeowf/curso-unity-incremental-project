@@ -97,4 +97,10 @@ public class PlayerCharacter : MonoBehaviour
         _anim.SetFloat("Speed", Mathf.Abs(_horizontal));
         _anim.SetFloat("HorizontalVelocity", Mathf.Abs(_rb.velocity.x));
     }
+
+    public float GetPlayerVelocity()
+    {
+        return _rb.velocity.x;
+    }
+
 }
