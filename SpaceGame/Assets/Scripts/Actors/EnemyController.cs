@@ -8,11 +8,16 @@ public class EnemyController : MonoBehaviour
     private Transform enemy;
     public float speed;
     //public float next_spawn_time;
-    public static float life = 3;
+    public static float life;
+    public static float initLife;
+    public float initialLife = 4;
+
     // Start is called before the first frame update
     void Start()
     {
         enemy = GetComponent<Transform> ();
+        life = initialLife;
+        initLife = initialLife;
         //next_spawn_time = Time.time+5.0f;
     }
 

@@ -36,8 +36,12 @@ public class ShipProjectile : MonoBehaviour
     {    
         if (other.tag == "Enemy")
         {
+            EnemyController.life -= damage;
+            if(EnemyController.life <=0){
+                EnemyController.life = EnemyController.initLife;
+                ObjectPool.SharedInstance.ReturnToPool(other.gameObject);    
+            }
             ObjectPool.SharedInstance.ReturnToPool(gameObject);
-            ObjectPool.SharedInstance.ReturnToPool(other.gameObject);
         }
         else if (other.tag == "Asteroid")
         {
