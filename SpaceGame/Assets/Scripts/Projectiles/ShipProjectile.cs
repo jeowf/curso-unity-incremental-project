@@ -32,6 +32,21 @@ public class ShipProjectile : MonoBehaviour
 
     }
     */
-   
+    void OnTriggerEnter2D(Collider2D other)
+    {    
+        if (other.tag == "Enemy")
+        {
+            EnemyController.life -= damage;
+            if(EnemyController.life <=0){
+                EnemyController.life = EnemyController.initLife;
+                ObjectPool.SharedInstance.ReturnToPool(other.gameObject);    
+            }
+            ObjectPool.SharedInstance.ReturnToPool(gameObject);
+        }
+        else if (other.tag == "Asteroid")
+        {
+            ObjectPool.SharedInstance.ReturnToPool(gameObject);
+        }
+    }
 
 }

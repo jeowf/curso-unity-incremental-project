@@ -54,8 +54,10 @@ public class PlayerShip : MonoBehaviour
                toPos.y < maxCamera.y;
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
+        if (0 > health - damage)
+            Destroy(this.gameObject);
         health -= damage;
         healthBar.SetHealth(health);
     }
