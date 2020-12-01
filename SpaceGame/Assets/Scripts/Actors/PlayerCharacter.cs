@@ -25,9 +25,9 @@ public class PlayerCharacter : MonoBehaviour
     private AudioSource _audio;
     private AudioSource _aterrisar;
     private AudioSource _pulo;
-    private AudioSource _MorteAudio;
-
+    
     private bool _flip = false;
+    private bool isJumping = false;
 
     private float _horizontal;
     //private float _vertical;
@@ -47,12 +47,9 @@ public class PlayerCharacter : MonoBehaviour
     {
         vida -= dano;
         healthBar.SetHealth(vida);
-
         if(vida <= 0)
         {
-            _MorteAudio.Play();
-            Destroy(gameObject, 0.5f);
-            
+            Destroy(gameObject);
         }
     }
 
@@ -61,7 +58,6 @@ public class PlayerCharacter : MonoBehaviour
         _audio = GetComponent<AudioSource>();
         _aterrisar = aterrisar.GetComponent<AudioSource>();
         _pulo = pulo.GetComponent<AudioSource>();
-        _MorteAudio = MorteAudio.GetComponent<AudioSource>();
         _sr = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
         _capsule = GetComponent<CapsuleCollider2D>();
@@ -107,9 +103,11 @@ public class PlayerCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
-        _audio.UnPause();
         if (_horizontal != 0)
         {
+            if(_grounded){
+                _audio.UnPause();
+            }
             _rb.AddForce(Vector2.right * _horizontal * movementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
         }
         else
@@ -131,12 +129,18 @@ public class PlayerCharacter : MonoBehaviour
         if (!_grounded) {
             _audio.Pause();
             _anim.SetBool("Jumping", true);
-            _aterrisar.Play();
+            isJumping = true;
+            
             //_afloat = true;
         }
         else
         {
             //_afloat = false;
+            if(isJumping)
+            {
+                _aterrisar.Play();
+                isJumping = false;
+            }
             _anim.SetBool("Jumping", false);
         }
         // Fim do script do pulo

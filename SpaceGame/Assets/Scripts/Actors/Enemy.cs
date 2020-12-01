@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sr;
     private bool dealtDamage = false;
+    private AudioSource audio;
 
     public float damage =5f;
     public float health = 100;
@@ -19,6 +20,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         sr = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
@@ -46,15 +48,14 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-
+        audio.Play();
         if(health <= 0)
         {
             anim.SetBool("Dead", true);
             playerScript.RaisePoints(pointsWorth);
-            Destroy(gameObject);
+            Destroy(gameObject, 1f);
         }
     }
-
 
 
     // Update is called once per frame
@@ -79,7 +80,6 @@ public class Enemy : MonoBehaviour
         else
         {
             anim.SetBool("Following", false);
-        }
-        
+        }        
     }
 }
