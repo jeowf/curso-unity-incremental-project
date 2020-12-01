@@ -57,7 +57,10 @@ public class PlayerShip : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (0 > health - damage)
+        {
             Destroy(this.gameObject);
+            FindObjectOfType<GameManager>().EndGame();
+        }
         health -= damage;
         healthBar.SetHealth(health);
     }
