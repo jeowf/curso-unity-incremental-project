@@ -18,6 +18,7 @@ public class PlayerCharacter : MonoBehaviour
     public GameObject aterrisar;
     public GameObject pulo;
     public AudioClip hit; 
+    public DeathUI deathUI;
     private SpriteRenderer _sr;
     private Animator _anim;
     private CapsuleCollider2D _capsule;
@@ -50,6 +51,7 @@ public class PlayerCharacter : MonoBehaviour
         healthBar.SetHealth(vida);
         if(vida <= 0)
         {
+            deathUI.DeathMenuOpen();
             Destroy(gameObject);
         }
     }
