@@ -75654,7 +75654,7 @@ MonoBehaviour:
   uIScore: {fileID: 700149491}
   aterrisar: {fileID: 997925331}
   pulo: {fileID: 1771156265}
-  MorteAudio: {fileID: 319940711}
+  hit: {fileID: 8300000, guid: 4f0e915f6dbb18b4a8949eca68805e2e, type: 3}
 --- !u!50 &2083255252
 Rigidbody2D:
   serializedVersion: 4

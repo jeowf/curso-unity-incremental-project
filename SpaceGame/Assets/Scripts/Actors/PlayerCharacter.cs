@@ -17,7 +17,7 @@ public class PlayerCharacter : MonoBehaviour
     public UIScore uIScore;
     public GameObject aterrisar;
     public GameObject pulo;
-    public GameObject MorteAudio; 
+    public AudioClip hit; 
     private SpriteRenderer _sr;
     private Animator _anim;
     private CapsuleCollider2D _capsule;
@@ -45,6 +45,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public void TakeDamage(float dano)
     {
+        _aterrisar.PlayOneShot(hit);
         vida -= dano;
         healthBar.SetHealth(vida);
         if(vida <= 0)
