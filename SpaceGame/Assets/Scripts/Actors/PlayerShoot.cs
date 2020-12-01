@@ -6,13 +6,17 @@ public class PlayerShoot : MonoBehaviour
 {
     public PlayerProjectile projectile;
     public Transform firePoint;
+    //public AudioClip shot;
+    public GameObject firepoint;
     private Animator _anim;
-
+    private AudioSource _audio;
+    
     private bool shooted = false;
 
     void Start()
     {
         _anim = GetComponent<Animator>();
+        _audio = firepoint.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,6 +47,7 @@ public class PlayerShoot : MonoBehaviour
             proj.transform.position = firePoint.position;
             proj.GetComponent<PlayerProjectile>().shooter = gameObject;
             proj.SetActive(true);
+            _audio.Play();
             shooted = false;
         }
 

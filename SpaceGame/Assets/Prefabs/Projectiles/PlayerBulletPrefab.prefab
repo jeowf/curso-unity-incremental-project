@@ -98,7 +98,7 @@ MonoBehaviour:
   damage: 20
   speed: 10
   rate: 0.5
-  limite: 2
+  limite: 10
   shooter: {fileID: 0}
 --- !u!58 &6351929373552301696
 CircleCollider2D:

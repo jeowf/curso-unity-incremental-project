@@ -15,11 +15,17 @@ public class PlayerCharacter : MonoBehaviour
     public int pontuacao;
     public HealthBar healthBar;
     public UIScore uIScore;
-
+    public GameObject aterrisar;
+    public GameObject pulo;
+    public GameObject MorteAudio; 
     private SpriteRenderer _sr;
     private Animator _anim;
     private CapsuleCollider2D _capsule;
     private Rigidbody2D _rb;
+    private AudioSource _audio;
+    private AudioSource _aterrisar;
+    private AudioSource _pulo;
+    private AudioSource _MorteAudio;
 
     private bool _flip = false;
 
@@ -44,12 +50,18 @@ public class PlayerCharacter : MonoBehaviour
 
         if(vida <= 0)
         {
-            Destroy(gameObject);
+            _MorteAudio.Play();
+            Destroy(gameObject, 0.5f);
+            
         }
     }
 
     void Start()
     {
+        _audio = GetComponent<AudioSource>();
+        _aterrisar = aterrisar.GetComponent<AudioSource>();
+        _pulo = pulo.GetComponent<AudioSource>();
+        _MorteAudio = MorteAudio.GetComponent<AudioSource>();
         _sr = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
         _capsule = GetComponent<CapsuleCollider2D>();
@@ -57,6 +69,7 @@ public class PlayerCharacter : MonoBehaviour
         pontuacao = 0;
         healthBar.SetMaxHealth(vida);
         uIScore.UpdateText(pontuacao);
+        
     }
 
     // Update is called once per frame
@@ -94,10 +107,14 @@ public class PlayerCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        _audio.UnPause();
         if (_horizontal != 0)
         {
             _rb.AddForce(Vector2.right * _horizontal * movementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+        }
+        else
+        {   
+            _audio.Pause();            
         }
         //Script do pulo
         Debug.DrawRay(transform.position, -Vector3.up * groundThresh, Color.red);
@@ -105,12 +122,16 @@ public class PlayerCharacter : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && _grounded)
         {
+            _audio.Pause();
+            _pulo.Play();
             //_rb.AddForce(Vector2.up * jumpSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
             _rb.velocity = new Vector2(_rb.velocity.x, jumpSpeed);
         }
 
         if (!_grounded) {
+            _audio.Pause();
             _anim.SetBool("Jumping", true);
+            _aterrisar.Play();
             //_afloat = true;
         }
         else
