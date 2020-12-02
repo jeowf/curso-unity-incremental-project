@@ -10,6 +10,7 @@ public class PlayerShip : MonoBehaviour
     //public HealthBar healthBar;
 
     public UpdateHPBar updateHPBar;
+    public DeathUI deathMenu;
 
     private Rigidbody2D rb;
 
@@ -60,7 +61,8 @@ public class PlayerShip : MonoBehaviour
     {
         if (0 > health - damage)
         {
-            FindObjectOfType<GameManager>().EndGame();
+            deathMenu.DeathMenuOpen();
+            //FindObjectOfType<GameManager>().EndGame();
             //Destroy(this.gameObject);
         }
         health -= damage;
