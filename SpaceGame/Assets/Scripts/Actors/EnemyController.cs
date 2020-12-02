@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     public static float initLife;
     public float initialLife = 4;
 
+    private ScoreManager scoreManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,8 @@ public class EnemyController : MonoBehaviour
         life = initialLife;
         initLife = initialLife;
         //next_spawn_time = Time.time+5.0f;
+
+        scoreManager = GameObject.FindObjectOfType<ScoreManager>();
     }
 
 
@@ -44,5 +48,19 @@ public class EnemyController : MonoBehaviour
                 playerShip.TakeDamage(contactDamage);
             //Destroy(other.gameObject);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        life -= damage;
+        if (life <= 0)
+        {
+            life = initLife;
+
+            ObjectPool.SharedInstance.ReturnToPool(gameObject);
+
+            scoreManager.IncrementScore(1);
+        }
+        //ObjectPool.SharedInstance.ReturnToPool(gameObject);
     }
 }

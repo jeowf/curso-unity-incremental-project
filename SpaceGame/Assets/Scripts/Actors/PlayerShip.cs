@@ -7,7 +7,9 @@ public class PlayerShip : MonoBehaviour
     public float speed = 1f;
     public int health = 100;
     public int Score;
-    public HealthBar healthBar;
+    //public HealthBar healthBar;
+
+    public UpdateHPBar updateHPBar;
 
     private Rigidbody2D rb;
 
@@ -22,7 +24,7 @@ public class PlayerShip : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         
-        healthBar.SetMaxHealth(health);
+        //healthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -58,10 +60,13 @@ public class PlayerShip : MonoBehaviour
     {
         if (0 > health - damage)
         {
-            Destroy(this.gameObject);
             FindObjectOfType<GameManager>().EndGame();
+            //Destroy(this.gameObject);
         }
         health -= damage;
-        healthBar.SetHealth(health);
+        updateHPBar?.Invoke(health);
+        //healthBar.SetHealth(health);
     }
+
+    public delegate void UpdateHPBar(int hp);
 }

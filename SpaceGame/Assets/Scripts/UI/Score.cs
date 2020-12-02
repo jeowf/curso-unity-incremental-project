@@ -6,16 +6,24 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     public Text scoreText;
-    public PlayerShip playerShip;
+    //public PlayerShip playerShip;
     // Start is called before the first frame update
-    void Start()
+
+    private ScoreManager scoreManager;
+    void OnEnable()
     {
-        
+        scoreManager = GameObject.FindObjectOfType<ScoreManager>();
+        scoreManager.updateScore += UpdateScore;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisablee()
     {
-        scoreText.text = playerShip.Score.ToString();
+        scoreManager.updateScore -= UpdateScore;
+    }
+
+
+    void UpdateScore(int score)
+    {
+        scoreText.text = score.ToString();
     }
 }

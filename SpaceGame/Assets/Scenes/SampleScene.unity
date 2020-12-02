@@ -2081,6 +2081,49 @@ MonoBehaviour:
   projectiles:
   - {fileID: 4063201300737884791, guid: da05e46059ecfee4190446f67c019205, type: 3}
   - {fileID: 1953847092872673375, guid: 08e7de58aa0b3904ebf7b64aeff9e624, type: 3}
+--- !u!1 &1126935752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126935754}
+  - component: {fileID: 1126935753}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1126935753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126935752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b0591277258604fb86a3c920cc6ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1126935754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126935752}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1091222, y: 1.9912782, z: -0.67796445}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1233724724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,6 +2829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1931980049}
+  player: {fileID: 1096842541}
 --- !u!114 &1931980049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2918,7 +2962,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2059868984}
-  playerShip: {fileID: 1096842541}
 --- !u!114 &2059868984
 MonoBehaviour:
   m_ObjectHideFlags: 0
