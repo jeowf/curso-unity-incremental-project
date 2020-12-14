@@ -5,6 +5,7 @@ using UnityEngine;
 public class AsteroidController : MonoBehaviour
 {
     private Transform asteroid;
+    public AudioClip destroyEnemysfx;
     private int contactDamage = 50;
     public float speed;
     
@@ -35,6 +36,7 @@ public class AsteroidController : MonoBehaviour
         }
         else if(other.tag == "Enemy")
         {
+            sfxController.SharedInstance.PlayClip(destroyEnemysfx);
             ObjectPool.SharedInstance.ReturnToPool(other.gameObject);
         }
     }

@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class MusicBackgroundController : MonoBehaviour
 {
-    private AudioSource audio;
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<AudioSource>().volume = VolumeController.MusicVolume;
         GetComponent<AudioSource>().Play();
-        setVolume(VolumeController.MusicVolume);
     }
 
     public void setVolume(float volume){
         GetComponent<AudioSource>().volume = volume;
     }
-    // Update is called once per frame
 }

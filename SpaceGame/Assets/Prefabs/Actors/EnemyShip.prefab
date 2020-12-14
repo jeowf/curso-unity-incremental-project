@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  destroySound: {fileID: 8300000, guid: 1c497bbf9189a9544a5b121a58d17a0b, type: 3}
+  initialLife: 4
 --- !u!61 &72548682386769028
 BoxCollider2D:
   m_ObjectHideFlags: 0

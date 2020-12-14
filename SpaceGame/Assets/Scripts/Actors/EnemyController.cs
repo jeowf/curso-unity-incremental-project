@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
     private Transform enemy;
     private int contactDamage = 30;
     public float speed;
+    
+    public AudioClip destroySound;
     //public float next_spawn_time;
     public static float life;
     public static float initLife;
@@ -56,6 +58,8 @@ public class EnemyController : MonoBehaviour
         if (life <= 0)
         {
             life = initLife;
+
+            sfxController.SharedInstance.PlayClip(destroySound);
 
             ObjectPool.SharedInstance.ReturnToPool(gameObject);
 

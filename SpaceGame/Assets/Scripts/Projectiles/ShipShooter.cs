@@ -6,13 +6,15 @@ public class ShipShooter : MonoBehaviour
 {
     public List<ShipProjectile> projectiles;
 
+    public AudioClip bullet2;
+    
     private int selectedType = 0;
 
     private bool shooted = false;
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -22,7 +24,12 @@ public class ShipShooter : MonoBehaviour
             StartCoroutine(Shoot());
    
         if (Input.GetKeyDown(KeyCode.Q))
+        {
             selectedType = (selectedType + 1) % projectiles.Count;
+            AudioClip aux = GetComponent<AudioSource>().clip;
+            GetComponent<AudioSource>().clip = bullet2;
+            bullet2 = aux;
+        }
     }
 
     public IEnumerator Shoot()
@@ -36,6 +43,7 @@ public class ShipShooter : MonoBehaviour
             yield return new WaitForSeconds(t);
             //GameObject proj = GameObject.Instantiate(projectiles[selectedType].gameObject) as GameObject;
             GameObject proj = ObjectPool.SharedInstance.GetPooledObject(projectiles[selectedType].gameObject);
+            GetComponent<AudioSource>().Play();
             proj.transform.position = transform.position;
             proj.transform.rotation = transform.rotation;
             proj.SetActive(true);

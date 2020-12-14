@@ -8,6 +8,7 @@ public class MusicMenuController : MonoBehaviour
     void Start()
     {
         GetComponent<AudioSource>().Play();
+        setVolume(1f);
     }
     
     public void setVolume(float volume){
